@@ -3,6 +3,8 @@ package cursoAlura;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class ExemplosStreams {
 
@@ -29,13 +31,38 @@ public class ExemplosStreams {
 		.map(s -> s.getCodigo())
 		.forEach(total -> System.out.println("total "+total));
 		
+		//soma os codigos > 50
 		int sum = listaTelefone.stream()
 		.filter(s -> s.getCodigo() > 50)
 		.mapToInt(Telefone::getCodigo)
 		.sum();
 		System.out.println(sum);
 		
+		//vai retornar se existe algum telefone com codigo  = 71
+		Optional<Telefone> optionalTelefone = listaTelefone.stream()
+				.filter(s -> s.getCodigo() == 71)
+				.findAny();
 		
+		Telefone telefone = optionalTelefone.orElse(null);
+		System.out.println(telefone.getEstado());
+		
+		listaTelefone.stream()
+				.filter(s -> s.getCodigo() == 71)
+				.findAny()
+				.ifPresent(s -> System.out.println(s.getEstado()));
+		
+		listaTelefone = listaTelefone.stream()
+				.filter(s -> s.getCodigo() > 50)
+				.collect(Collectors.toList());
+		
+		//listaTelefone.parallelStream() //utilizar que tiver uma lista enorme
+		listaTelefone.stream()
+				.filter(s-> s.getCodigo()> 10)
+				.collect(Collectors.toMap(
+						s-> s.getEstado(), s-> s.getCodigo()))
+				.forEach((estado, codigo) -> System.out.println(estado + " = " + codigo));
 	}
+	
+	
 
 }
