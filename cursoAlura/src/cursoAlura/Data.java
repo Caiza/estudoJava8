@@ -17,8 +17,8 @@ public class Data {
 		LocalDate olimpiadas = LocalDate.of(2021, Month.JUNE, 5);
 		int anos = olimpiadas.getYear() - hoje.getYear();
 		System.out.println(anos);
-		Period periodo = Period.between(hoje, olimpiadas);
-		System.out.println(periodo.getDays());
+		
+		System.out.println("Periodo em meses"+Period.between(hoje, olimpiadas).getMonths());
 		
 		System.out.println("proxima olimpiada "+olimpiadas.plusYears(4));
 		
